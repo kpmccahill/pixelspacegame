@@ -5,8 +5,8 @@
 #include <Node2D.hpp>
 
 namespace godot {
-    class Star : public Node2D {
-        GODOT_CLASS(Star, Node2D)
+    class Star : public godot::Node2D {
+        GODOT_CLASS(Star, godot::Node2D)
 
     private:
         String name;
