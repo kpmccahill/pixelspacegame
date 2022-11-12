@@ -24,6 +24,7 @@ namespace godot {
 
         int galaxy_size; // # of stars
         float star_density; // how tightly packed they are. might need to change away from # of stars
+        float offset;
         // std::vector<Vector2> systems;
 
 

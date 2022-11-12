@@ -1,12 +1,21 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://galaxy.tscn" type="PackedScene" id=2]
 [ext_resource path="res://src/MainCamera.tscn" type="PackedScene" id=3]
+
+[sub_resource type="Environment" id=1]
+background_mode = 1
 
 [node name="Main" type="Node"]
 
 [node name="Camera2D" parent="." instance=ExtResource( 3 )]
 offset = Vector2( 635, 360 )
 current = true
+speed = 500
+zoom_speed = 0.5
 
 [node name="Galaxy" parent="." instance=ExtResource( 2 )]
+star_density = 0.003
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource( 1 )
