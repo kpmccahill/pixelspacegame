@@ -4,6 +4,8 @@
 #include <Godot.hpp>
 #include <Area2D.hpp>
 #include <CollisionShape2D.hpp>
+#include <PackedScene.hpp>
+#include <RandomNumberGenerator.hpp>
 
 // Local
 #include <star.h>
@@ -26,6 +28,7 @@ namespace godot {
 
 
     public:
+        Ref<PackedScene> star_scene;
 
         void _init();
         void _ready();
