@@ -2,7 +2,7 @@
 
 using namespace godot;
 
-void Star::_init() {
+void Star::_ready() {
     name = "test";
     magnitude = float(4.83);
 }

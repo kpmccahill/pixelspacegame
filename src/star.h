@@ -22,7 +22,8 @@ namespace godot {
         // char spectral_type;
     public:
         // Star _new(); // can implement this?
-        void _init();
+        void _init() {} 
+        void _ready();
         void _process(float delta);
 
         static void _register_methods();

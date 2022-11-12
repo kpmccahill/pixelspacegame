@@ -2,17 +2,17 @@
 
 using namespace godot;
 
-void Galaxy::_init() {
+// void Galaxy::_init() { }
+
+void Galaxy::_ready() {
     galaxy_size = 500;
     star_density = 1.0;
     generate();
-}
-
-void Galaxy::_ready() {
     // _collision_shape = get_node<CollisionShape2D>("CollisionShape2D");
     _screen_size = get_viewport_rect().size;
     _screen_center = _screen_center * 0.5;
 
+    printf("testing");
     // _collision_shape->set_position(_screen_center);
 }
 
@@ -33,6 +33,7 @@ void Galaxy::generate() {
             temp_star = Star::_new();
             temp_star->set_position(Vector2(i * 2, j * 3));
             add_child(temp_star);
+            printf("testing2");
         }
     }
 
