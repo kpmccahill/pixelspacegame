@@ -9,16 +9,20 @@
 #include <star.h>
 #include <list>
 
+// std
+#include <vector>
+
 namespace godot {
     class Galaxy : public Area2D {
         GODOT_CLASS(Galaxy, Area2D);
 
         CollisionShape2D *_collision_shape;
         Vector2 _screen_size;
+        Vector2 _screen_center;
 
-        float star_density = 1000;
-
-
+        int galaxy_size; // # of stars
+        float star_density; // how tightly packed they are. might need to change away from # of stars
+        // std::vector<Vector2> systems;
 
 
     public:
@@ -26,13 +30,12 @@ namespace godot {
         void _init();
         void _ready();
         void _process(float delta);
+        void _physics_process(float delta );
 
-        void genereate();
+        void generate();
         void regenerate();
-
         static void _register_methods();
-
-
+        
     };
 }
 
