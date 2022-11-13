@@ -7,8 +7,10 @@ export var speed: int = 250
 var default_zoom: Vector2 = Vector2.ONE
 var zoom_interval: Vector2 = Vector2(0.25, 0.25)
 
-var zoom_max: Vector2 = Vector2(2, 2)
-var zoom_min: Vector2 = Vector2(0.5, 0.5)
+export var _zoom_max: float = 2
+export var _zoom_min: float = 0.25
+var zoom_max: Vector2 = Vector2(_zoom_max, _zoom_max)
+var zoom_min: Vector2 = Vector2(_zoom_min, _zoom_min)
 export var zoom_speed: float = 0.25 ## lerp weight
 
 # Called when the node enters the scene tree for the first time.

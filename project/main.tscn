@@ -4,14 +4,14 @@
 [ext_resource path="res://src/MainCamera.tscn" type="PackedScene" id=3]
 
 [sub_resource type="Environment" id=1]
-background_mode = 1
 
 [node name="Main" type="Node"]
 
 [node name="Camera2D" parent="." instance=ExtResource( 3 )]
-offset = Vector2( 635, 360 )
+offset = Vector2( 960, 540 )
 current = true
 speed = 500
+_zoom_max = 3.0
 zoom_speed = 0.5
 
 [node name="Galaxy" parent="." instance=ExtResource( 2 )]

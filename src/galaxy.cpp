@@ -9,6 +9,7 @@ void Galaxy::_init() {
 }
 
 void Galaxy::_ready() {
+    _input = Input::get_singleton();
     _screen_size = Vector2(1270, 720);
     _screen_center = _screen_size * 0.5;
     generate();
@@ -17,7 +18,9 @@ void Galaxy::_ready() {
 }
 
 void Galaxy::_process(float delta) {
-
+    if (_input->is_action_pressed("regen")){
+        regenerate();
+    }
 }
 
 void Galaxy::_physics_process(float delta ) {
@@ -46,10 +49,20 @@ void Galaxy::generate() {
     }
 
 }
-
-// Clears the current system and generates a new one.
+/*
+    Clears all children of this node and then calls the generate function.
+    This is really slow. This is O(n^2) time for clearing followed by the generate method.
+    Could get around this by just creating a completely new galaxy instance
+    from outsite the class.
+    */
 void Galaxy::regenerate() {
-
+    printf("regen\n");
+    Array children = get_children();
+    for (int i = 0; i < get_child_count(); i++){
+        Node *temp = children.pop_front();
+        temp->queue_free();
+    }
+    generate();
 }
 
 // register all methods we wish to expose.
