@@ -25,13 +25,16 @@ namespace godot {
 
         int galaxy_size; // # of stars
         float star_density; // how tightly packed they are. might need to change away from # of stars
-        float offset;
+        float offset_x;
+        float offset_y;
 
         Input *_input;
 
 
     public:
         Ref<PackedScene> star_scene;
+        
+        int seed;
 
         void _init();
         void _ready();

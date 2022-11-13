@@ -3,9 +3,10 @@
 using namespace godot;
 
 void Galaxy::_init() {
-    galaxy_size = 500;
-    star_density = 0.9;
-    offset = 10;
+    galaxy_size = 50;
+    star_density = 0.1;
+    offset_x = 50;
+    offset_y = 50;
 }
 
 void Galaxy::_ready() {
@@ -27,27 +28,23 @@ void Galaxy::_physics_process(float delta ) {
 
 }
 
-// Starts the procedural generation of the galaxy. Inserting systems into the systems array.
+// Starts procedural generation w/ a simple offset and threshold.
 void Galaxy::generate() { 
-    // Simple offset generation
-    // for (int i = 0; i < 500; i++) {
-    //     temp_star = star_scene->instance();
-    //     temp_star->set("position", Vector2(float(i * 2), float(3)));
-    //     add_child(temp_star);
-    // }
     Node *temp_star;
     Ref<RandomNumberGenerator> random = RandomNumberGenerator::_new();
     random->randomize();
-    for (int i = 0; i < int(_screen_size.x); i++){
-        for (int j = 0; j < int(_screen_size.y); j++){
-            if (random->randf() >= (1 - star_density)) {
+    seed = random->get_seed();
+    int dimensions = galaxy_size / 2;
+    // Array weights = Array(Array());
+    for (int i = 0; i < int(dimensions); i++){
+        for (int j = 0; j < int(dimensions); j++){
+            if (random->randf() < star_density) {
                 temp_star = star_scene->instance();
-                temp_star->set("position", (Vector2(i * offset, j * offset)));
+                temp_star->set("position", (Vector2(i * offset_x, j * offset_y)));
                 add_child(temp_star);
             }
         }
     }
-
 }
 /*
     Clears all children of this node and then calls the generate function.
@@ -62,6 +59,7 @@ void Galaxy::regenerate() {
         Node *temp = children.pop_front();
         temp->queue_free();
     }
+    emit_signal("regenerating");
     generate();
 }
 
@@ -70,8 +68,12 @@ void Galaxy::_register_methods() {
     register_method("_ready", &Galaxy::_ready);
     register_method("_process", &Galaxy::_process);
     register_method("_physics_process", &Galaxy::_physics_process);
-    register_property<Galaxy, int>("galaxy_size", &Galaxy::galaxy_size, 500);
-    register_property<Galaxy, float>("star_density", &Galaxy::star_density, 1.0);
-    register_property<Galaxy, float>("offset", &Galaxy::offset, 10);
+    register_property<Galaxy, int>("galaxy_size", &Galaxy::galaxy_size, 50);
+    register_property<Galaxy, float>("star_density", &Galaxy::star_density, 0.1);
+    register_property<Galaxy, int>("seed", &Galaxy::seed, 0);
+    register_property<Galaxy, float>("offset_x", &Galaxy::offset_x, 50);
+    register_property<Galaxy, float>("offset_y", &Galaxy::offset_y, 50);
     register_property("star_scene", &Galaxy::star_scene, (Ref<PackedScene>)nullptr);
+
+    register_signal<Galaxy>("regenerating", Dictionary());
 }
