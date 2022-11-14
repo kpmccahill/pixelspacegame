@@ -28,19 +28,19 @@ namespace godot {
         float offset_x;
         float offset_y;
 
-        Input *_input;
+        // Input *_input;
 
 
     public:
         Ref<PackedScene> star_scene;
         
         int seed;
-
         void _init();
         void _ready();
         void _process(float delta);
         void _physics_process(float delta );
 
+        void init(int _size, float _density, int _offset_x, int _offset_y);
         void generate();
         void regenerate();
         static void _register_methods();

@@ -3,25 +3,33 @@
 using namespace godot;
 
 void Galaxy::_init() {
-    galaxy_size = 50;
-    star_density = 0.1;
-    offset_x = 50;
-    offset_y = 50;
+    // galaxy_size = 50;
+    // star_density = 0.1;
+    // offset_x = 50;
+    // offset_y = 50;
+}
+
+void Galaxy::init(int _size, float _density, int _offset_x, int _offset_y) {
+    galaxy_size = _size;
+    star_density = _density;
+    offset_x = _offset_x;
+    offset_y = _offset_y;
+    generate();
 }
 
 void Galaxy::_ready() {
-    _input = Input::get_singleton();
+    // _input = Input::get_singleton();
     _screen_size = Vector2(1270, 720);
     _screen_center = _screen_size * 0.5;
-    generate();
+    // generate();
     // _collision_shape = get_node<CollisionShape2D>("CollisionShape2D");
     // _collision_shape->set_position(_screen_center);
 }
 
 void Galaxy::_process(float delta) {
-    if (_input->is_action_pressed("regen")){
-        regenerate();
-    }
+    // if (_input->is_action_pressed("regen")){
+    //     regenerate();
+    // }
 }
 
 void Galaxy::_physics_process(float delta ) {
@@ -46,6 +54,7 @@ void Galaxy::generate() {
         }
     }
 }
+
 /*
     Clears all children of this node and then calls the generate function.
     This is really slow. This is O(n^2) time for clearing followed by the generate method.
@@ -65,15 +74,16 @@ void Galaxy::regenerate() {
 
 // register all methods we wish to expose.
 void Galaxy::_register_methods() {
+    register_method("init", &Galaxy::init);
     register_method("_ready", &Galaxy::_ready);
     register_method("_process", &Galaxy::_process);
     register_method("_physics_process", &Galaxy::_physics_process);
-    register_property<Galaxy, int>("galaxy_size", &Galaxy::galaxy_size, 50);
-    register_property<Galaxy, float>("star_density", &Galaxy::star_density, 0.1);
+    register_property<Galaxy, int>("galaxy_size", &Galaxy::galaxy_size, 1000);
+    register_property<Galaxy, float>("star_density", &Galaxy::star_density, 0.001);
     register_property<Galaxy, int>("seed", &Galaxy::seed, 0);
-    register_property<Galaxy, float>("offset_x", &Galaxy::offset_x, 50);
-    register_property<Galaxy, float>("offset_y", &Galaxy::offset_y, 50);
+    register_property<Galaxy, float>("offset_x", &Galaxy::offset_x, 6);
+    register_property<Galaxy, float>("offset_y", &Galaxy::offset_y, 6);
     register_property("star_scene", &Galaxy::star_scene, (Ref<PackedScene>)nullptr);
 
-    register_signal<Galaxy>("regenerating", Dictionary());
+    // register_signal<Galaxy>("regenerating", Dictionary());
 }
